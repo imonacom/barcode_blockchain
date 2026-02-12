@@ -395,18 +395,54 @@
         }
 
         .tag-halal {
+            background: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+        }
+
+        .tag-organic {
             background: rgba(16, 185, 129, 0.2);
             color: #34d399;
         }
 
-        .tag-organic {
+        .tag-grade {
             background: rgba(245, 158, 11, 0.2);
             color: #fbbf24;
         }
 
-        .tag-grade {
-            background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
+        .welfare-rating-ref {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .welfare-rating-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: rgba(255,255,255,0.4);
+            margin-right: 4px;
+        }
+
+        .wr-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .wr-low { background: #ef4444; }
+        .wr-moderate { background: #f59e0b; }
+        .wr-good { background: #10b981; }
+        .wr-high { background: #3b82f6; }
+
+        .wr-text {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            margin-right: 6px;
         }
 
         .overall-score {
@@ -1169,8 +1205,15 @@
                     <div class="barcode-id"><i class="fas fa-barcode"></i> &nbsp;BRK-2026-0212-AL-7849</div>
                     <div class="product-tags">
                         <span class="product-tag tag-halal">Halal Certified</span>
-                        <span class="product-tag tag-organic">High-Welfare</span>
+                        <span class="product-tag tag-organic">Good</span>
                         <span class="product-tag tag-grade">UAEU-AlFoah Farm</span>
+                    </div>
+                    <div class="welfare-rating-ref">
+                        <span class="welfare-rating-label">Welfare Rating</span>
+                        <span class="wr-dot wr-low"></span><span class="wr-text">Low</span>
+                        <span class="wr-dot wr-moderate"></span><span class="wr-text">Moderate</span>
+                        <span class="wr-dot wr-good"></span><span class="wr-text">Good</span>
+                        <span class="wr-dot wr-high"></span><span class="wr-text">High</span>
                     </div>
                 </div>
                 <div class="overall-score">
