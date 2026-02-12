@@ -827,6 +827,13 @@
             font-size: 12px;
         }
 
+        a.farm-map-placeholder:hover {
+            background: linear-gradient(135deg, #bfdbfe 0%, #ddd6fe 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: var(--accent-blue);
+        }
+
         /* Blockchain Audit */
         .audit-list {
             display: flex;
@@ -1397,10 +1404,11 @@
                         <span class="value">UAE Halal Authority · Emirates Organic · GLOBALG.A.P</span>
                     </div>
                 </div>
-                <div class="farm-map-placeholder">
+                <a href="https://www.google.com/maps/search/?api=1&query=24.2075,55.7447" target="_blank" rel="noopener noreferrer" class="farm-map-placeholder" style="text-decoration:none;cursor:pointer;transition:background 0.3s ease,transform 0.2s ease;">
                     <i class="fas fa-location-dot"></i>
                     Al Foah Farm — 24.2075° N, 55.7447° E
-                </div>
+                    <i class="fas fa-arrow-up-right-from-square" style="font-size:10px;margin-left:4px;opacity:0.6;"></i>
+                </a>
             </div>
 
             <!-- BLOCKCHAIN AUDIT TRAIL -->
