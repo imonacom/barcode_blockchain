@@ -496,6 +496,70 @@
             align-items: center;
             gap: 10px;
             min-width: 0;
+            position: relative;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .chain-detail:hover {
+            background: var(--bg-primary);
+        }
+
+        .chain-tooltip {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            width: 280px;
+            background: var(--text-primary);
+            color: #e2e8f0;
+            font-size: 12.5px;
+            line-height: 1.65;
+            padding: 16px 18px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+
+        .chain-tooltip.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .chain-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .chain-tooltip .tooltip-title {
+            font-weight: 700;
+            color: #fff;
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chain-tooltip .tooltip-title i {
+            font-size: 11px;
+            opacity: 0.6;
         }
 
         .chain-detail-icon {
@@ -940,6 +1004,17 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .chain-tooltip {
+                left: 0;
+                transform: translateX(0) translateY(6px);
+            }
+            .chain-tooltip.active {
+                transform: translateX(0) translateY(0);
+            }
+            .chain-tooltip::before {
+                left: 30px;
+                transform: rotate(45deg);
+            }
         }
 
         @media (max-width: 600px) {
@@ -1124,7 +1199,7 @@
     <!-- BLOCKCHAIN INFO BAR -->
     <div class="chain-info-bar">
         <div class="chain-info-inner">
-            <div class="chain-detail">
+            <div class="chain-detail" onclick="toggleTooltip(this)">
                 <div class="chain-detail-icon" style="background:var(--accent-blue-light);color:var(--accent-blue);">
                     <i class="fas fa-cubes"></i>
                 </div>
@@ -1132,8 +1207,12 @@
                     <div class="label">Block Number</div>
                     <div class="value">#18,492,037</div>
                 </div>
+                <div class="chain-tooltip">
+                    <div class="tooltip-title"><i class="fas fa-lightbulb"></i> What is a Block Number?</div>
+                    Think of it like a page number in a giant, shared notebook that nobody can erase. This meat's welfare data was permanently written on page #18,492,037. Because every page is numbered in order, you can always go back and verify that nothing was changed — giving you full trust in what you're eating.
+                </div>
             </div>
-            <div class="chain-detail">
+            <div class="chain-detail" onclick="toggleTooltip(this)">
                 <div class="chain-detail-icon" style="background:var(--accent-purple-light);color:var(--accent-purple);">
                     <i class="fas fa-fingerprint"></i>
                 </div>
@@ -1141,8 +1220,12 @@
                     <div class="label">Transaction Hash</div>
                     <div class="value">0x7a3f8e2c...4d91b6</div>
                 </div>
+                <div class="chain-tooltip">
+                    <div class="tooltip-title"><i class="fas fa-lightbulb"></i> What is a Transaction Hash?</div>
+                    This is like a unique fingerprint for this specific record. Just as no two people share the same fingerprint, no two transactions share the same hash. It guarantees that the welfare data for your meat hasn't been tampered with — a digital seal of authenticity that protects you as a consumer.
+                </div>
             </div>
-            <div class="chain-detail">
+            <div class="chain-detail" onclick="toggleTooltip(this)">
                 <div class="chain-detail-icon" style="background:var(--accent-green-light);color:var(--accent-green);">
                     <i class="fas fa-clock"></i>
                 </div>
@@ -1150,14 +1233,22 @@
                     <div class="label">Timestamp</div>
                     <div class="value">2026-02-10 14:32 UTC</div>
                 </div>
+                <div class="chain-tooltip">
+                    <div class="tooltip-title"><i class="fas fa-lightbulb"></i> What is a Timestamp?</div>
+                    This is the exact moment the welfare data was locked into the blockchain — like a notary stamp that proves when the record was created. Unlike a regular database where dates can be edited, this timestamp is permanent and trustworthy. You know exactly when this information was certified.
+                </div>
             </div>
-            <div class="chain-detail">
+            <div class="chain-detail" onclick="toggleTooltip(this)">
                 <div class="chain-detail-icon" style="background:var(--accent-orange-light);color:var(--accent-orange);">
                     <i class="fas fa-network-wired"></i>
                 </div>
                 <div class="chain-detail-text">
                     <div class="label">Consensus</div>
                     <div class="value">12 / 12 Nodes ✓</div>
+                </div>
+                <div class="chain-tooltip">
+                    <div class="tooltip-title"><i class="fas fa-lightbulb"></i> What is Consensus?</div>
+                    Imagine 12 independent witnesses all confirming the same story — that's consensus. All 12 computers in the network verified and agreed that this welfare data is accurate. No single party can fake or alter the record. This is why blockchain brings real transparency to your food supply chain.
                 </div>
             </div>
         </div>
@@ -1501,6 +1592,27 @@
             });
         }, 300);
     }, 3800);
+
+    // === Tooltip toggle ===
+    function toggleTooltip(el) {
+        const tooltip = el.querySelector('.chain-tooltip');
+        const isActive = tooltip.classList.contains('active');
+
+        // Close all tooltips first
+        document.querySelectorAll('.chain-tooltip.active').forEach(t => t.classList.remove('active'));
+
+        // Toggle the clicked one (if it wasn't already open)
+        if (!isActive) {
+            tooltip.classList.add('active');
+        }
+    }
+
+    // Close tooltips when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.chain-detail')) {
+            document.querySelectorAll('.chain-tooltip.active').forEach(t => t.classList.remove('active'));
+        }
+    });
 
     // === Intersection Observer for scroll animations ===
     const observer = new IntersectionObserver((entries) => {
